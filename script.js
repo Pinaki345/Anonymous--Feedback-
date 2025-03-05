@@ -31,8 +31,10 @@ document.getElementById("submitBtn").addEventListener("click", async function() 
             timestamp: serverTimestamp()
         });
 
-        document.getElementById("message").innerText = "Feedback submitted anonymously!";
+        // Show thank you message and feedback link
+        document.getElementById("message").innerText = "Thanks for your feedback!";
         document.getElementById("feedback").value = ""; // Clear input
+        document.getElementById("feedbackLink").style.display = "block";
     } catch (error) {
         console.error("Error submitting feedback:", error);
         alert("Error submitting feedback. Try again!");
