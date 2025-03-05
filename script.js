@@ -1,17 +1,40 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+// Import Firebase SDK
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
-// Your web app's Firebase configuration
+// Firebase Configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyB1S2QPLiJVkoQ-FipgDAtZmkl8g9r_iSY",
-  authDomain: "anonymousfeedbackapp.firebaseapp.com",
-  projectId: "anonymousfeedbackapp",
-  storageBucket: "anonymousfeedbackapp.firebasestorage.app",
-  messagingSenderId: "921030899001",
-  appId: "1:921030899001:web:ccff21c8d7dbffe3c524e8"
+    apiKey: "your-api-key",
+    authDomain: "your-project-id.firebaseapp.com",
+    projectId: "your-project-id",
+    storageBucket: "your-project-id.appspot.com",
+    messagingSenderId: "your-messaging-sender-id",
+    appId: "your-app-id"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Feedback Submission
+document.getElementById("submitBtn").addEventListener("click", async function() {
+    let feedback = document.getElementById("feedback").value;
+
+    if (feedback.trim() === "") {
+        alert("Please enter feedback before submitting.");
+        return;
+    }
+
+    try {
+        await addDoc(collection(db, "feedbacks"), {
+            text: feedback,
+            timestamp: serverTimestamp()
+        });
+
+        document.getElementById("message").innerText = "Feedback submitted anonymously!";
+        document.getElementById("feedback").value = ""; // Clear input
+    } catch (error) {
+        console.error("Error submitting feedback:", error);
+        alert("Error submitting feedback. Try again!");
+    }
+});
