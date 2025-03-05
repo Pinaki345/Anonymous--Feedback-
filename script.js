@@ -1,3 +1,17 @@
+// Firebase Configuration (Replace with your actual config)
+const firebaseConfig = {
+    apiKey: "AIzaSyB1S2QPLiJVkoQ-FipgDAtZmkl8g9r_iSY",
+    authDomain: "anonymousfeedbackapp.firebaseapp.com",
+    projectId: "anonymousfeedbackapp",
+    storageBucket: "anonymousfeedbackapp.firebasestorage.app",
+    messagingSenderId: "921030899001",
+    appId: "1:921030899001:web:ccff21c8d7dbffe3c524e8"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
 document.addEventListener("DOMContentLoaded", function () {
     const submitBtn = document.getElementById("submitBtn");
     const feedbackInput = document.getElementById("feedback");
@@ -13,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         try {
-            // Store feedback in Firestore (Error 3 will be checked later)
+            // Store feedback in Firestore
             await db.collection("feedbacks").add({
                 text: feedback,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
