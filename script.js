@@ -1,22 +1,3 @@
-// Import Firebase SDK
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
-
-// Firebase Configuration
-const firebaseConfig = {
-    apiKey: "your-api-key",
-    authDomain: "your-project-id.firebaseapp.com",
-    projectId: "your-project-id",
-    storageBucket: "your-project-id.appspot.com",
-    messagingSenderId: "your-messaging-sender-id",
-    appId: "your-app-id"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-// Feedback Submission
 document.addEventListener("DOMContentLoaded", function () {
     const submitBtn = document.getElementById("submitBtn");
     const feedbackInput = document.getElementById("feedback");
@@ -32,9 +13,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         try {
-            await addDoc(collection(db, "feedbacks"), {
+            // Store feedback in Firestore (Error 3 will be checked later)
+            await db.collection("feedbacks").add({
                 text: feedback,
-                timestamp: serverTimestamp()
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
             });
 
             // Show thank you message and reset input
