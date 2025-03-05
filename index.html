@@ -4,15 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anonymous Feedback</title>
-    <link rel="stylesheet" href="style.css">
-    <script defer src="script.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        textarea {
+            width: 80%;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        p {
+            font-size: 18px;
+            margin-top: 10px;
+            color: green;
+        }
+        a {
+            display: none;
+            font-size: 16px;
+            margin-top: 10px;
+            color: blue;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Give Your Anonymous Feedback</h1>
-        <textarea id="feedback" placeholder="Write your feedback here..."></textarea>
-        <button id="submitBtn">Submit</button>
-        <p id="message"></p>
-    </div>
+
+    <h2>Anonymous Feedback</h2>
+    <textarea id="feedback" placeholder="Enter your feedback here..."></textarea>
+    <br>
+    <button id="submitBtn">Submit</button>
+    <p id="message"></p>
+    <a href="#" id="feedbackLink">Click here to give more feedback</a>
+
+    <script src="script.js"></script>
 </body>
 </html>
