@@ -17,26 +17,34 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // Feedback Submission
-document.getElementById("submitBtn").addEventListener("click", async function() {
-    let feedback = document.getElementById("feedback").value;
+document.addEventListener("DOMContentLoaded", function () {
+    const submitBtn = document.getElementById("submitBtn");
+    const feedbackInput = document.getElementById("feedback");
+    const message = document.getElementById("message");
+    const feedbackLink = document.getElementById("feedbackLink");
 
-    if (feedback.trim() === "") {
-        alert("Please enter feedback before submitting.");
-        return;
-    }
+    submitBtn.addEventListener("click", async function() {
+        let feedback = feedbackInput.value.trim();
 
-    try {
-        await addDoc(collection(db, "feedbacks"), {
-            text: feedback,
-            timestamp: serverTimestamp()
-        });
+        if (feedback === "") {
+            alert("Please enter feedback before submitting.");
+            return;
+        }
 
-        // Show thank you message and feedback link
-        document.getElementById("message").innerText = "Thanks for your feedback!";
-        document.getElementById("feedback").value = ""; // Clear input
-        document.getElementById("feedbackLink").style.display = "block";
-    } catch (error) {
-        console.error("Error submitting feedback:", error);
-        alert("Error submitting feedback. Try again!");
-    }
+        try {
+            await addDoc(collection(db, "feedbacks"), {
+                text: feedback,
+                timestamp: serverTimestamp()
+            });
+
+            // Show thank you message and reset input
+            message.style.display = "block";
+            feedbackInput.value = "";
+            feedbackLink.style.display = "block";
+
+        } catch (error) {
+            console.error("Error submitting feedback:", error);
+            alert("Error submitting feedback. Try again!");
+        }
+    });
 });
