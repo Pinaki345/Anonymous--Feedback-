@@ -1,13 +1,17 @@
-document.getElementById("submitBtn").addEventListener("click", function() {
-    let feedback = document.getElementById("feedback").value;
-    
-    if (feedback.trim() === "") {
-        alert("Please enter feedback before submitting.");
-        return;
-    }
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-    // Send feedback to Firebase (We’ll set this up next)
-    console.log("Feedback submitted:", feedback);
-    document.getElementById("message").innerText = "Feedback submitted anonymously!";
-    document.getElementById("feedback").value = ""; // Clear input
-});
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyB1S2QPLiJVkoQ-FipgDAtZmkl8g9r_iSY",
+  authDomain: "anonymousfeedbackapp.firebaseapp.com",
+  projectId: "anonymousfeedbackapp",
+  storageBucket: "anonymousfeedbackapp.firebasestorage.app",
+  messagingSenderId: "921030899001",
+  appId: "1:921030899001:web:ccff21c8d7dbffe3c524e8"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
