@@ -3,7 +3,7 @@ const firebaseConfig = {
     apiKey: "AIzaSyB1S2QPLiJVkoQ-FipgDAtZmkl8g9r_iSY",
     authDomain: "anonymousfeedbackapp.firebaseapp.com",
     projectId: "anonymousfeedbackapp",
-    storageBucket: "anonymousfeedbackapp.firebasestorage.app",
+    storageBucket: "anonymousfeedbackapp.appspot.com",
     messagingSenderId: "921030899001",
     appId: "1:921030899001:web:ccff21c8d7dbffe3c524e8"
 };
