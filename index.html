@@ -5,42 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anonymous Feedback</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-        textarea {
-            width: 80%;
-            height: 100px;
-            margin-bottom: 10px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #218838;
-        }
-        p {
-            font-size: 18px;
-            margin-top: 10px;
-            color: green;
-        }
-        a {
-            display: none;
-            font-size: 16px;
-            margin-top: 10px;
-            color: blue;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        textarea { width: 80%; height: 100px; margin-bottom: 10px; }
+        button { padding: 10px 20px; background-color: #28a745; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #218838; }
+        p { font-size: 18px; margin-top: 10px; color: green; }
+        a { display: none; font-size: 16px; margin-top: 10px; color: blue; text-decoration: none; }
+        a:hover { text-decoration: underline; }
     </style>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
 </head>
 <body>
 
@@ -51,6 +26,45 @@
     <p id="message"></p>
     <a href="#" id="feedbackLink">Click here to give more feedback</a>
 
-    <script src="script.js"></script>
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "your-api-key",
+            authDomain: "your-project-id.firebaseapp.com",
+            projectId: "your-project-id",
+            storageBucket: "your-project-id.appspot.com",
+            messagingSenderId: "your-messaging-sender-id",
+            appId: "your-app-id"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Feedback Submission
+        document.getElementById("submitBtn").addEventListener("click", async function() {
+            let feedback = document.getElementById("feedback").value;
+
+            if (feedback.trim() === "") {
+                alert("Please enter feedback before submitting.");
+                return;
+            }
+
+            try {
+                await db.collection("feedbacks").add({
+                    text: feedback,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                // Show thank you message and feedback link
+                document.getElementById("message").innerText = "Thanks for your feedback!";
+                document.getElementById("feedback").value = ""; // Clear input
+                document.getElementById("feedbackLink").style.display = "block";
+            } catch (error) {
+                console.error("Error submitting feedback:", error);
+                alert("Error submitting feedback. Try again!");
+            }
+        });
+    </script>
 </body>
 </html>
